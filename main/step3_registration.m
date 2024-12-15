@@ -1,6 +1,6 @@
 function step3_registration(config)
-%STEP3_REG 此处显示有关此函数的摘要
-%   此处显示详细说明
+%STEP3_REG 姝ゅ鏄剧ず鏈夊叧姝ゅ嚱鏁扮殑鎽樿
+%   姝ゅ鏄剧ず璇︾粏璇存槑
     concat_d = round(config.zstep*1000/3/config.pixel_size);
        
     cache_path = fullfile(config.elastix_path, 'cache');
