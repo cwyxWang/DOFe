@@ -24,11 +24,11 @@ function step3_registration(config)
     stack = add_d(stack, concat_d);
     write_img(stack,result_name);
     d = d0+concat_d;
-    stitching_d = ceil(d0/2)+concat_d+1;
+    stitching_d = ceil(d0/2)+concat_d+3;
     for i = 2:data_num
-        temp = zeros(h,w,d);
+        temp = zeros(h,w,d+concat_d);
         corr = 2;
-        if mod(i,3)==1
+        if mod(i,3)==0
             corr = 4;
         end
         temp(:,:,d-d0+1-corr:d-corr) = read_stack(fullfile(config.save_path, data_name{i}),h,w,d0);
@@ -39,9 +39,9 @@ function step3_registration(config)
             new_stack = (new_stack-120)*1.5+120;
         end
         
-         stack(:,:,d-stitching_d-1) = ((new_stack(:,:,d-stitching_d-1)+3*stack(:,:,d-stitching_d-1))/4-120)*1.3+120;
-         stack(:,:,d-stitching_d) = ((new_stack(:,:,d-stitching_d)+stack(:,:,d-stitching_d))/2-120)*1.3+120;
-         stack(:,:,d-stitching_d+1) = ((3*new_stack(:,:,d-stitching_d+1)+stack(:,:,d-stitching_d+1))/4-120)*1.3+120;
+        stack(:,:,d-stitching_d-1) = ((new_stack(:,:,d-stitching_d-1)+3*stack(:,:,d-stitching_d-1))/4-120)*1.2+120;
+        stack(:,:,d-stitching_d) = ((new_stack(:,:,d-stitching_d)+stack(:,:,d-stitching_d))/2-120)*1.2+120;
+        stack(:,:,d-stitching_d+1) = ((3*new_stack(:,:,d-stitching_d+1)+stack(:,:,d-stitching_d+1))/4-120)*1.2+120;
         %     stack(:,:,d-21) = (new_stack(:,:,d-21)+stack(:,:,d-21))/2;
         %     stack(:,:,d-22) = (new_stack(:,:,d-22)+stack(:,:,d-22))/2;
         
@@ -72,6 +72,6 @@ end
 end
 
 function new_stack = add_d(stack, d)
-new_stack = zeros(size(stack,1),size(stack,2),size(stack,3)+d);
-new_stack(:,:,1:size(stack,3)) = stack;
+    new_stack = zeros(size(stack,1),size(stack,2),size(stack,3)+d);
+    new_stack(:,:,1:size(stack,3)) = stack;
 end
