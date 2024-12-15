@@ -1,8 +1,8 @@
 function configure(config)
-%CONFIGING ´Ë´¦ÏÔÊ¾ÓĞ¹Ø´Ëº¯ÊıµÄÕªÒª
-%   ´Ë´¦ÏÔÊ¾ÏêÏ¸ËµÃ÷
+%CONFIGING æ­¤å¤„æ˜¾ç¤ºæœ‰å…³æ­¤å‡½æ•°çš„æ‘˜è¦
+%   æ­¤å¤„æ˜¾ç¤ºè¯¦ç»†è¯´æ˜
     t1 = clock;
-    % ¶Á¸ùÄ¿Â¼ÏÂµÄËùÓĞv_¿ªÍ·µÄÎÄ¼şÃû
+    % è¯»æ ¹ç›®å½•ä¸‹çš„æ‰€æœ‰v_å¼€å¤´çš„æ–‡ä»¶å
     temp = dir(fullfile(config.root,'v_*'));
     View_name = {temp.name};
     view_num = size(View_name, 2); 
@@ -34,7 +34,7 @@ function configure(config)
     s = dt1-m*60;
     h = floor(m/60);
     m = m-h*60;
-    fprintf(['ÖØ½¨×ÜºÄÊ±',num2str(h),'h',num2str(m),'m',num2str(s),'s\n'])
+    fprintf(['é‡å»ºæ€»è€—æ—¶',num2str(h),'h',num2str(m),'m',num2str(s),'s\n'])
 
 end
 
