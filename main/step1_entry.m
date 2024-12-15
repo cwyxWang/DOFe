@@ -1,18 +1,18 @@
 function step1_entry(config)
-%STEP1_ENTRY ´Ë´¦ÏÔÊ¾ÓĞ¹Ø´Ëº¯ÊıµÄÕªÒª
-%   ´Ë´¦ÏÔÊ¾ÏêÏ¸ËµÃ÷
+%STEP1_ENTRY æ­¤å¤„æ˜¾ç¤ºæœ‰å…³æ­¤å‡½æ•°çš„æ‘˜è¦
+%   æ­¤å¤„æ˜¾ç¤ºè¯¦ç»†è¯´æ˜
     config.iminfo = cell(1,3);
     config.iminfo{1} = get_data_info(config, 'len_1');
     config.iminfo{2} = get_data_info(config, 'len_2');
     config.iminfo{3} = get_data_info(config, 'len_3');
     for i = 1:config.iminfo{1}.timepoint
         tic;
-        fprintf([num2str(i),'\t\t']);   % ´òÓ¡Ê±¼äµã
+        fprintf([num2str(i),'\t\t']);   % æ‰“å°æ—¶é—´ç‚¹
         
         step2_reconstruction(config, i);
         
         dt = toc;
-        fprintf([num2str(dt), '\n']);   % ´òÓ¡Ê±¼ä¼ä¸ô
+        fprintf([num2str(dt), '\n']);   % æ‰“å°æ—¶é—´é—´éš”
         
     end
     step3_registration(config);
@@ -37,13 +37,13 @@ if isempty(data_path)
 end
 
 if isfolder(data_path)
-    temp = dir(fullfile(data_path,'*.tif'));   % *Í¨Åä·û£¬´ú±í¶ÁÈ¡ËùÓĞÒÔ.tif½áÎ²µÄÎÄ¼ş
+    temp = dir(fullfile(data_path,'*.tif'));   % *é€šé…ç¬¦ï¼Œä»£è¡¨è¯»å–æ‰€æœ‰ä»¥.tifç»“å°¾çš„æ–‡ä»¶
     data_name = {temp.name};
-    data_num = size(data_name, 2);  % data_num£ºÓĞ¼¸ÕÅtifÍ¼
+    data_num = size(data_name, 2);  % data_numï¼šæœ‰å‡ å¼ tifå›¾
     stack_size_list = zeros(data_num,1);
     for i = 1:data_num
         temp = imfinfo(fullfile(data_path, data_name{i}));
-        stack_size_list(i) = size(temp,1);   % ÈçÓĞ4ÕÅtif£¬Ôò¸ÃÁĞ±í±£´æÁËÃ¿ÕÅtifÔÚzÉÏµÄÕÅÊı
+        stack_size_list(i) = size(temp,1);   % å¦‚æœ‰4å¼ tifï¼Œåˆ™è¯¥åˆ—è¡¨ä¿å­˜äº†æ¯å¼ tifåœ¨zä¸Šçš„å¼ æ•°
     end
     info = temp(1);
     height   = info.Height;
@@ -52,7 +52,7 @@ if isfolder(data_path)
 end
 
 file_num = sum(stack_size_list);
-timepoint = ceil(file_num / config.slice_per_stack);   % floorÏòÏÂÈ¡Õû
+timepoint = ceil(file_num / config.slice_per_stack);   % floorå‘ä¸‹å–æ•´
 
 datainfo.data_name = data_name;
 datainfo.stack_size_list = stack_size_list;
