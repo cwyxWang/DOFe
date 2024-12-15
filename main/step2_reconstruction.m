@@ -1,11 +1,11 @@
 function step2_reconstruction(config,ind)
-%STEP2_RECONSTRUCTION ´Ë´¦ÏÔÊ¾ÓĞ¹Ø´Ëº¯ÊıµÄÕªÒª
-%   ´Ë´¦ÏÔÊ¾ÏêÏ¸ËµÃ÷ind-i
+%STEP2_RECONSTRUCTION æ­¤å¤„æ˜¾ç¤ºæœ‰å…³æ­¤å‡½æ•°çš„æ‘˜è¦
+%   æ­¤å¤„æ˜¾ç¤ºè¯¦ç»†è¯´æ˜ind-i
     shift_vector = [config.l1_shift,0,config.l2_shift];
     for i = 1:size(config.iminfo,2)
         save_name = fullfile(config.save_path,sprintf('%04d-%04d.tif', ind,4-i));
         affine_matrix = get_affine(config.factor, config.theta);
-        a = (ind-1) * config.slice_per_stack + 1;   % È¡µÚi*60ÕÅÍ¼³öÀ´
+        a = (ind-1) * config.slice_per_stack + 1;   % å–ç¬¬i*60å¼ å›¾å‡ºæ¥
         b = ind * config.slice_per_stack;
         stack = read_stack(config.iminfo{i},(a:b));
         result = imwarp(stack,affine3d(affine_matrix), 'linear');         % 'cubic','nearest'
@@ -42,13 +42,13 @@ end
 
 %%
 function stack = read_stack(iminfo,name_list)
-n_slice  = size(name_list, 2);   % name_listÊÇÒ»¸ö1*60µÄ¾ØÕó£¬¶ÁÈ¡µÚ¶ş¸öÎ¬¶È60¸øn_slice
+n_slice  = size(name_list, 2);   % name_listæ˜¯ä¸€ä¸ª1*60çš„çŸ©é˜µï¼Œè¯»å–ç¬¬äºŒä¸ªç»´åº¦60ç»™n_slice
 if isempty(iminfo.data_path)
     stack = [];
     return
 end
 
-name_code = cell(1,n_slice);   % cellÔª°ûÊı×é£¬´æ×Ö·û´®µÄÊı×é£¬Ë÷ÒıÓÃ{}´óÀ¨ºÅ
+name_code = cell(1,n_slice);   % cellå…ƒèƒæ•°ç»„ï¼Œå­˜å­—ç¬¦ä¸²çš„æ•°ç»„ï¼Œç´¢å¼•ç”¨{}å¤§æ‹¬å·
 slice_code = (1:n_slice)*0;
 img_num = size(iminfo.stack_size_list);
 
@@ -68,7 +68,7 @@ for i = 1:n_slice
     try
         stack(:,:,i) = imread(fullfile(iminfo.data_path, name_code{i}), slice_code(i));
     catch
-        warning('Ë÷Òı³¬³öÊı×éÔªËØµÄÊıÄ¿.');
+        warning('ç´¢å¼•è¶…å‡ºæ•°ç»„å…ƒç´ çš„æ•°ç›®.');
     end
 
 end
