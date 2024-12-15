@@ -24,7 +24,7 @@ function step3_registration(config)
     stack = add_d(stack, concat_d);
     write_img(stack,result_name);
     d = d0+concat_d;
-    stitching_d = ceil(d0/2)+concat_d-5;
+    stitching_d = ceil(d0/2)+concat_d+1;
     for i = 2:data_num
         temp = zeros(h,w,d);
         corr = 2;
