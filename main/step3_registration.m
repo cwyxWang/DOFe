@@ -51,6 +51,11 @@ function step3_registration(config)
         d = d+concat_d;
     end
     write_img(stack(:,:,1:d-concat_d),fullfile(config.view_path,'result.tif'));
+    try
+        temp = ['rmdir ',config.save_path,' s'];
+        eval(temp);
+    catch
+    end
 end
 
 %%
