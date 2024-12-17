@@ -1,0 +1,12 @@
+Image parameters
+magnification 60
+x scan 200
+x step 0.2476
+z step 3.25
+
+Calibration parameters
+y shift -20 0 7
+z shift 8 8 8
+i shift 1.5 1 1
+e shift 1.1 1.2 1.2
+s shift 8
