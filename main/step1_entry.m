@@ -1,21 +1,25 @@
 function step1_entry(config)
-%STEP1_ENTRY 此处显示有关此函数的摘要
-%   此处显示详细说明
     config.iminfo = cell(1,3);
     config.iminfo{1} = get_data_info(config, 'len_1');
     config.iminfo{2} = get_data_info(config, 'len_2');
     config.iminfo{3} = get_data_info(config, 'len_3');
     for i = 1:config.iminfo{1}.timepoint
         tic;
-        fprintf([num2str(i),'\t\t']);   % 打印时间点
+        fprintf([num2str(i),'\t\t']);  
         
         step2_reconstruction(config, i);
         
         dt = toc;
-        fprintf([num2str(dt), '\n']);   % 打印时间间隔
+        fprintf([num2str(dt), '\n']);   
         
     end
+    
+    if config.dof
+        step2_5_dof(config);
+    end
+
     step3_registration(config);
+    
 end
 %%
 function datainfo = get_data_info(config, file_name)
@@ -37,13 +41,13 @@ if isempty(data_path)
 end
 
 if isfolder(data_path)
-    temp = dir(fullfile(data_path,'*.tif'));   % *通配符，代表读取所有以.tif结尾的文件
+    temp = dir(fullfile(data_path,'*.tif'));  
     data_name = {temp.name};
-    data_num = size(data_name, 2);  % data_num：有几张tif图
+    data_num = size(data_name, 2);  
     stack_size_list = zeros(data_num,1);
     for i = 1:data_num
         temp = imfinfo(fullfile(data_path, data_name{i}));
-        stack_size_list(i) = size(temp,1);   % 如有4张tif，则该列表保存了每张tif在z上的张数
+        stack_size_list(i) = size(temp,1);   
     end
     info = temp(1);
     height   = info.Height;
@@ -52,7 +56,7 @@ if isfolder(data_path)
 end
 
 file_num = sum(stack_size_list);
-timepoint = ceil(file_num / config.slice_per_stack);   % floor向下取整
+timepoint = ceil(file_num / config.slice_per_stack); 
 
 datainfo.data_name = data_name;
 datainfo.stack_size_list = stack_size_list;
